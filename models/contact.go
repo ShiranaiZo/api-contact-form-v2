@@ -13,7 +13,7 @@ type Contact struct {
 	DeletedAt time.Time `gorm:"column:deleted_at;type:DATETIME;index"`
 }
 
-// ??? Emang ada yg manggil "tablename"?
+// untuk gorm. gorm akan cari tablename
 func (Contact) TableName() string {
 	return "contact_messages"
 }

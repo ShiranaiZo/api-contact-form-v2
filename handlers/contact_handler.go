@@ -63,7 +63,7 @@ func (h *ContactHandler) GetContacts(c *gin.Context) {
 
 	var contactResponses []responses.ContactResponse
 	for _, contact := range contacts {
-		contactResponses = append(contactResponses, responses.ContactResponseFromModel(&contact)) // ??? ini ngapain njr, ga paham
+		contactResponses = append(contactResponses, responses.ContactResponseFromModel(&contact)) // biar tidak redudansi, karna contact repsonse from model bakal redudansi
 	}
 
 	c.JSON(http.StatusOK, responses.APIResponse{
@@ -74,22 +74,22 @@ func (h *ContactHandler) GetContacts(c *gin.Context) {
 }
 
 func (h *ContactHandler) GetContact(c *gin.Context) {
-	idParam := c.Param("id")
-	id, err := strconv.Atoi(idParam)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, responses.APIResponse{
-			Code:    "BAD_REQUEST",
-			Message: "Invalid ID",
-			Data:    nil,
-		})
+	// idParam := c.Param("id")
+	// id, err := strconv.Atoi(idParam)
+	// if err != nil {
+	// 	c.JSON(http.StatusBadRequest, responses.APIResponse{
+	// 		Code:    "BAD_REQUEST",
+	// 		Message: "Invalid ID",
+	// 		Data:    nil,
+	// 	})
 
-		return
-	}
+	// 	return
+	// }
 
-	contact, err := h.service.GetContactByID(uint(id))
+	contact, err := h.service.GetContactByID(5)
 	if err != nil {
 		c.JSON(http.StatusNotFound, responses.APIResponse{
-			Code:    "NOT_FOUND",
+			Code:    "NOT_FOUND", // bakal tampil NOt_FOUND nya
 			Message: "Contact not found",
 			Data:    nil,
 		})
@@ -134,7 +134,7 @@ func (h *ContactHandler) UpdateContact(c *gin.Context) {
 	contact, err := h.service.UpdateContact(uint(id), &req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, responses.APIResponse{
-			Code:    "BAD_REQUEST", //??? apakah nanti tampilnay message string atau code 401 atau lainnya?
+			Code:    "BAD_REQUEST",
 			Message: err.Error(),
 			Data:    nil,
 		})

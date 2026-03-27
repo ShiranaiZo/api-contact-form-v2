@@ -53,7 +53,7 @@ func (s *contactService) GetContactByID(id uint) (*models.Contact, error) {
 }
 
 func (s *contactService) UpdateContact(id uint, req *requests.ContactRequest) (*models.Contact, error) {
-	err := s.validate.Struct(req) // ??? tiba tiba ada validate, emang base nya apa validasinya kaya gmn
+	err := s.validate.Struct(req) // memang struct untuk ngevalidassi dari request yg mana validasi nya di atur di contact requets
 	if err != nil {
 		return nil, err
 	}
