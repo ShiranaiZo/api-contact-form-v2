@@ -36,7 +36,7 @@ func (r *contactRepository) FindAll() ([]models.Contact, error) {
 func (r *contactRepository) FindByID(id uint) (*models.Contact, error) {
 	var contact models.Contact
 
-	err := r.db.Where("id = ? AND deleted_at = ?", id, "0000-00-00 00:00:00").First(&contact).Error
+	err := r.db.Where("id = ?", id).First(&contact).Error
 
 	return &contact, err
 }

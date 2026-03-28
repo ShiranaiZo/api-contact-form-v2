@@ -74,19 +74,19 @@ func (h *ContactHandler) GetContacts(c *gin.Context) {
 }
 
 func (h *ContactHandler) GetContact(c *gin.Context) {
-	// idParam := c.Param("id")
-	// id, err := strconv.Atoi(idParam)
-	// if err != nil {
-	// 	c.JSON(http.StatusBadRequest, responses.APIResponse{
-	// 		Code:    "BAD_REQUEST",
-	// 		Message: "Invalid ID",
-	// 		Data:    nil,
-	// 	})
+	idParam := c.Param("id")
+	id, err := strconv.Atoi(idParam)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, responses.APIResponse{
+			Code:    "BAD_REQUEST",
+			Message: "Invalid ID",
+			Data:    nil,
+		})
 
-	// 	return
-	// }
+		return
+	}
 
-	contact, err := h.service.GetContactByID(5)
+	contact, err := h.service.GetContactByID(uint(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, responses.APIResponse{
 			Code:    "NOT_FOUND", // bakal tampil NOt_FOUND nya
@@ -142,7 +142,7 @@ func (h *ContactHandler) UpdateContact(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusBadRequest, responses.APIResponse{
+	c.JSON(http.StatusOK, responses.APIResponse{
 		Code:    "SUCCESS",
 		Message: "Contact updated successfuly",
 		Data:    responses.ContactResponseFromModel(contact),
